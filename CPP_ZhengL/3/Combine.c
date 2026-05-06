@@ -1,0 +1,43 @@
+#include<stdio.h>
+int main()
+{
+    int a[100];
+    int size,i,j,input,t,k;
+    scanf("%d",&size);
+    i=0;
+    j=0;
+    while(j<size)
+    {
+        scanf("%d,",&input);
+        if(input!=0)
+        {
+            a[i]=input;
+            i++;
+        }
+        else
+        {
+            if(j!=size)
+            {
+                j++;
+                continue;
+            }
+            else
+            break;
+        }
+    }
+    for(k=0;k<i-1;k++)
+    {
+    for(j=0;j<i-1-k;j++)
+    {
+        if(a[j]>a[j+1])
+        {
+            t=a[j];
+            a[j]=a[j+1];
+            a[j+1]=t;
+        }
+    }
+    }
+    printf("%d",a[0]);
+    for(j=1;j<i;j++)
+    printf(",%d",a[j]);
+}

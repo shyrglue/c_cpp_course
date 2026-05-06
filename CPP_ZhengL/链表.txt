@@ -1,0 +1,196 @@
+//单链表结构定义
+
+typedef struct node {
+	int data;//数据域
+	struct node* next;//指针域
+}node,*linklist;//struct node可以用node替换	struct node*可以用linklist替换
+//例如：struct node p	p是结构体node的变量  node q	q也是结构体node的变量
+//struct node *p	p是结构体node的指针变量 linklist q q也是结构体node的指针变量
+//想要详细了解，可以去查阅typedef和struct的用法
+
+
+//初始化链表
+void startlist(node* l) {
+	l->next = NULL;
+}
+/*当然在主函数中是需要创建头结点的，你也可以换一种写法，可以不需要分配头结点内存的写法，请自行查阅
+	node* head;
+	head = (node*)malloc(sizeof(node));//分配头结点内存
+	head->next=NULL;
+*/
+
+//头插法创建单链表
+void creatfromhead(node* head) {
+	node* s;//新建一个结点指针变量
+	int i = 1;
+	int j;
+	while (i != 0) {
+		scanf("%d", &j);
+		if (j != EOF) {
+			s = (node*)malloc(sizeof(node));//新建一个结点，node*可以替换成linklist
+			s->data = j;//把输入的值赋值给新结点的指针域
+			s->next = head->next;//把新结点插入到表头
+			head->next = s;//头结点始终要放在表头
+		}
+		else {
+			i = 0;
+		}
+	}
+}
+
+//尾插法
+void creatfromtail(node* head) {
+	node* s;//新建一个结点指针变量
+	node* tail;//在建立一个尾结点指针变量
+	int i = 1;
+	int j;
+	tail = head;//很重要的一步，令尾指针tail指向头结点head，便于做尾插入
+	while (i != 0) {
+		scanf("%d", &j);
+		if (j != -1) {
+			s = (node*)malloc(sizeof(node));//建立一个新结点
+			s->data = j;
+			tail->next = s;//尾指针的指针域指向新结点head（换一句话说，就是将新结点放在最后面）
+			tail = s;//再让尾指针放在s后面，尾指针永远在最后面
+		}
+		else {
+			i = 0;
+			tail->next = NULL;//尾指针的指针域设置为空，表示链表结束
+		}
+	}
+}
+//核心代码
+tail = head;
+s->next = NULL;
+tail->next = s;
+tail = s;
+
+//输出链表
+void printlist(node *l) {
+	printf("该链表的内容为\n");;
+	while (l->next != NULL) {
+		printf("%d\t", l->next->data);
+		l = l->next;
+	}
+	printf("\n");
+}
+
+//单链表的插入
+void enterlist(node* l, int i, int e) {
+	node* p, * s;
+	int k = 0;
+	if (i <= 0) {
+		printf("插入的位置不合理\n");
+	}
+	p = l;
+	while (p != NULL && k < i - 1) {//查找第i-1个结点
+		p = p->next;
+		k++;
+	}
+	if (p == NULL) {//当遍历完整个表也没找到时，说明插入位置不合理（i过大） 
+		printf("插入的位置不合理\n");
+	}
+	s = (node*)malloc(sizeof(node));
+	s->data = e;
+	s->next = p->next;// 因为p时第i-1个结点 故 s的指针域应该指向第i个结点 
+	p->next = s;
+	printf("插入成功\n");
+}
+
+//不带头结点的单链表的插入操作
+    void LinkedListInertQE1(LinkedList L, LinkedList p, ElemType e)
+    {
+      q=(LNode *)malloc(sizeof(LNode));        //创建一个新的结点q
+      if(q==NULL)
+      {
+        printf("申请空间失败！");
+        exit(0);
+      }
+      q->data=e;
+
+      if(p==L)   //在表头插入
+      {
+        q->next=L;
+        L=q;
+      }
+      else      //在表的中间进行插入
+      {
+        pre=L;
+        while((pre!=NULL)&&(pre->next!=p))           //寻找p的前驱
+           pre=pre->next;
+
+        q->next=pre->next;
+        pre->next=q;
+      }
+    }
+
+    //带头结点的单链表的插入操作
+    void LinkedListInertQE2(LinkedList L, LinkedList p, ElemType e)
+    {
+      q=(LNode *)malloc(sizeof(LNode));        //创建一个新的结点q
+      if(q==NULL)
+      {
+        printf("申请空间失败！");
+        exit(0);
+      }
+      q->data=e;
+
+      //插入新的结点
+      pre=L;
+      while((pre!=NULL)&&(pre->next!=p))           //寻找p的前驱
+        pre=pre->next;
+
+      q->next=pre->next;
+      pre->next=q;
+    }
+
+
+//单链表的删除操作
+void dellist(node* l, int i) {
+	node* p, * r;
+	int k = 0;
+	p = l;
+	while (p->next != NULL && k < i - 1) {
+		p = p->next;
+		k++;
+	}
+	if (p->next == NULL) {
+		printf("删除位置不合法\n");
+	}
+	r = p->next;
+	p->next = r->next;
+	printf("删除的元素是%d\n", r->data);
+	free(r);
+}
+
+//不带头结点的单链表的删除操作
+     void LinkedListDeleteQE1(LinkedList L, LinkedList p, ElemType e)
+     {
+        pre=L;
+        while((pre!=NULL)&&(pre->next->data!=e))      //查找元素e的前驱
+            pre=pre->next;
+        p=pre->next;
+
+        if(p!=NULL)                //找到需要删除的结点
+        {
+          if(p==L)                 //删除的是第一个结点
+            L=p->next;
+          else                     //删除的是其他结点
+            pre->next=p->next;
+          free(p);
+        }
+     }
+     //带头结点的单链表的删除操作
+     void LinkedListDeleteQE2(LinkedList L, LinkedList p, ElemType e)
+     {
+        pre=L;
+        while((pre!=NULL)&&(pre->next->data!=e))      //查找元素e的前驱
+            pre=pre->next;
+        p=pre->next;
+
+        if(p!=NULL)                //找到需要删除的结点
+        {
+          pre->next=p->next;
+          free(p);
+        }
+     }

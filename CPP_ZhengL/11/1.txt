@@ -1,0 +1,9 @@
+C:\mingw64\bin\g++.exe -fdiagnostics-color=always -g E:\Desktop\CODE\11\1.cpp -o E:\Desktop\CODE\11\1.exe
+In file included from E:\Desktop\CODE\11\1.cpp:1:
+E:\Desktop\CODE\11\1.h: In member function 'void dog::SetAge(int)':
+E:\Desktop\CODE\11\1.h:15:9: error: 'int Animal::age' is private within this context
+         age=n;
+         ^~~
+E:\Desktop\CODE\11\1.h:8:9: note: declared private here
+     int age;
+         ^~~
