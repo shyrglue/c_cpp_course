@@ -1,0 +1,28 @@
+# 编译产物（Windows / MSVC / MinGW）
+*.exe
+*.out
+*.app
+*.dll
+*.lib
+*.a
+*.obj
+*.o
+*.ilk
+*.pdb
+*.exp
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+
+# Visual Studio / VS Code 本地配置（可选：若需共享 tasks.json 可删掉下一行）
+.vs/
+
+# 常见构建目录
+build/
+out/
+Debug/
+Release/
+x64/
+x86/
